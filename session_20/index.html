@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todo App with Notifications</title>
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Toastify CSS & JS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white shadow-lg rounded-xl p-6 w-full max-w-md">
+    <h1 class="text-2xl font-bold text-center mb-4 ">✅ Todo App</h1>
+
+    <!-- Input -->
+    <div class="flex gap-2 mb-4">
+      <input 
+        id="taskInput" 
+        type="text" 
+        placeholder="Enter a task..." 
+        class="flex-1 border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-400"
+      />
+      <button 
+        onclick="addTask()" 
+        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+        Add
+      </button>
+    </div>
+    <!-- Task List -->
+    <ul id="taskList" class="space-y-2"></ul>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
