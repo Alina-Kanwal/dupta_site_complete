@@ -1,0 +1,270 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   WAHI DESIGN TOKENS — mapped into Tailwind v4 @theme
+   ============================================================ */
+@theme inline {
+  /* ── Font families ────────────────────────────────────────── */
+  --font-sans:    var(--font-poppins);
+  --font-heading: var(--font-playfair);
+  --font-mono:    var(--font-geist-mono);
+
+  /* ── Wahi brand colors ────────────────────────────────────── */
+  --color-wahi-maroon:     #7A1F2B;   /* Primary: Deep Maroon/Wine */
+  --color-wahi-gold:       #C9A66B;   /* Secondary: Blush Gold */
+  --color-wahi-ivory:      #FAF6F1;   /* Background: Off-white/Ivory */
+  --color-wahi-rose:       #E8C4C4;   /* Accent: Soft Rose Pink */
+  --color-wahi-charcoal:   #2B2320;   /* Text: Charcoal */
+
+  /* Lighter / darker tints for hover states */
+  --color-wahi-maroon-light:  #9B2B3A;
+  --color-wahi-maroon-dark:   #5C1720;
+  --color-wahi-gold-light:    #D9BC8F;
+  --color-wahi-gold-dark:     #A8853F;
+  --color-wahi-rose-light:    #F2DADA;
+  --color-wahi-rose-dark:     #D4A0A0;
+
+  /* ── ShadCN semantic tokens → Wahi palette ───────────────── */
+  --color-background:        var(--background);
+  --color-foreground:        var(--foreground);
+  --color-card:              var(--card);
+  --color-card-foreground:   var(--card-foreground);
+  --color-popover:           var(--popover);
+  --color-popover-foreground:var(--popover-foreground);
+  --color-primary:           var(--primary);
+  --color-primary-foreground:var(--primary-foreground);
+  --color-secondary:         var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted:             var(--muted);
+  --color-muted-foreground:  var(--muted-foreground);
+  --color-accent:            var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive:       var(--destructive);
+  --color-border:            var(--border);
+  --color-input:             var(--input);
+  --color-ring:              var(--ring);
+
+  /* ── Radius scale ─────────────────────────────────────────── */
+  --radius-sm:  calc(var(--radius) * 0.6);
+  --radius-md:  calc(var(--radius) * 0.8);
+  --radius-lg:  var(--radius);
+  --radius-xl:  calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Sidebar (kept for ShadCN compat) */
+  --color-sidebar-ring:               var(--sidebar-ring);
+  --color-sidebar-border:             var(--sidebar-border);
+  --color-sidebar-accent-foreground:  var(--sidebar-accent-foreground);
+  --color-sidebar-accent:             var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary:            var(--sidebar-primary);
+  --color-sidebar-foreground:         var(--sidebar-foreground);
+  --color-sidebar:                    var(--sidebar);
+
+  /* Chart */
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+}
+
+/* ============================================================
+   WAHI SEMANTIC CSS VARIABLES (light mode)
+   ============================================================ */
+:root {
+  /* Override ShadCN defaults with Wahi brand values */
+  --background:          #FAF6F1;   /* Ivory */
+  --foreground:          #2B2320;   /* Charcoal */
+
+  --card:                #FFFFFF;
+  --card-foreground:     #2B2320;
+  --popover:             #FFFFFF;
+  --popover-foreground:  #2B2320;
+
+  --primary:             #7A1F2B;   /* Deep Maroon */
+  --primary-foreground:  #FAF6F1;
+
+  --secondary:           #C9A66B;   /* Blush Gold */
+  --secondary-foreground:#2B2320;
+
+  --muted:               #F5EDE8;
+  --muted-foreground:    #7A6B68;
+
+  --accent:              #E8C4C4;   /* Soft Rose */
+  --accent-foreground:   #2B2320;
+
+  --destructive:         oklch(0.577 0.245 27.325);
+
+  --border:              #E8D9D3;
+  --input:               #EFE5DF;
+  --ring:                #C9A66B;
+
+  /* Border radius — soft rounded (12px base) */
+  --radius:              0.75rem;
+
+  /* Charts */
+  --chart-1: #7A1F2B;
+  --chart-2: #C9A66B;
+  --chart-3: #E8C4C4;
+  --chart-4: #A8853F;
+  --chart-5: #9B2B3A;
+
+  /* Sidebar */
+  --sidebar:                    #FAF6F1;
+  --sidebar-foreground:         #2B2320;
+  --sidebar-primary:            #7A1F2B;
+  --sidebar-primary-foreground: #FAF6F1;
+  --sidebar-accent:             #E8C4C4;
+  --sidebar-accent-foreground:  #2B2320;
+  --sidebar-border:             #E8D9D3;
+  --sidebar-ring:               #C9A66B;
+}
+
+/* ============================================================
+   GLOBAL BASE STYLES
+   ============================================================ */
+@layer base {
+  /* Reset + border defaults */
+  * {
+    @apply border-border outline-ring/50;
+    box-sizing: border-box;
+  }
+
+  html {
+    /* Body font applied to html so all text inherits Poppins */
+    font-family: var(--font-poppins), system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-poppins), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Headings always use Playfair Display */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-playfair), Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: #2B2320;
+  }
+}
+
+/* ============================================================
+   GLOBAL TRANSITION & INTERACTION DEFAULTS
+   ============================================================ */
+@layer base {
+  /* Smooth transitions on interactive elements */
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  [role="button"] {
+    transition: all 200ms ease;
+    outline-offset: 2px;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid #C9A66B;
+    outline-offset: 2px;
+  }
+
+  /* Soft hover lift for card-like elements */
+  .card-hover {
+    transition: transform 250ms ease, box-shadow 250ms ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(122, 31, 43, 0.12);
+  }
+
+  /* Global image smoothing */
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+/* ============================================================
+   WAHI UTILITY CLASSES
+   ============================================================ */
+@layer utilities {
+  /* Typography helpers */
+  .font-heading {
+    font-family: var(--font-playfair), Georgia, serif;
+  }
+  .font-body {
+    font-family: var(--font-poppins), system-ui, sans-serif;
+  }
+
+  /* Brand color helpers */
+  .text-maroon   { color: #7A1F2B; }
+  .text-gold     { color: #C9A66B; }
+  .text-rose     { color: #E8C4C4; }
+  .text-ivory    { color: #FAF6F1; }
+  .text-charcoal { color: #2B2320; }
+
+  .bg-maroon { background-color: #7A1F2B; }
+  .bg-gold   { background-color: #C9A66B; }
+  .bg-rose   { background-color: #E8C4C4; }
+  .bg-ivory  { background-color: #FAF6F1; }
+
+  /* Soft shadow helpers */
+  .shadow-wahi-sm {
+    box-shadow: 0 2px 12px rgba(43, 35, 32, 0.08);
+  }
+  .shadow-wahi {
+    box-shadow: 0 4px 24px rgba(43, 35, 32, 0.10);
+  }
+  .shadow-wahi-lg {
+    box-shadow: 0 8px 40px rgba(43, 35, 32, 0.14);
+  }
+  .shadow-maroon {
+    box-shadow: 0 8px 32px rgba(122, 31, 43, 0.20);
+  }
+
+  /* Gradient helpers */
+  .gradient-maroon-gold {
+    background: linear-gradient(135deg, #7A1F2B 0%, #C9A66B 100%);
+  }
+  .gradient-ivory-rose {
+    background: linear-gradient(180deg, #FAF6F1 0%, #F5E6E6 100%);
+  }
+
+  /* Scrollbar hiding utilities */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Spacious section padding */
+  .section-padding {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-padding {
+      padding-top: 7rem;
+      padding-bottom: 7rem;
+    }
+  }
+}
